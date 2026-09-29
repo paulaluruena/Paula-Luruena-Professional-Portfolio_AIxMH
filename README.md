@@ -2,7 +2,14 @@
 
 A portfolio connecting developmental research, supervised behavioral support, community mental health, and cross-cultural experience. Built from Paula’s September 2026 résumé, with clearly labeled future interests in psychology and AI, human and consumer insight, and organizations.
 
-## Put the website on GitHub
+## Live portfolio
+
+- Website: https://paulaluruena.github.io/Paula-Luruena-Professional-Portfolio/
+- Public repository: https://github.com/paulaluruena/Paula-Luruena-Professional-Portfolio
+
+The website is published on GitHub Pages from the `main` branch, using the repository root.
+
+## Update the website on GitHub
 
 **Extract the ZIP first. Upload its contents, not the ZIP file.** GitHub Pages needs to find `index.html` directly in the repository.
 
@@ -13,7 +20,7 @@ A portfolio connecting developmental research, supervised behavioral support, co
 5. In **Settings → Pages**, select **Deploy from a branch**, **main**, and **/ (root)**, then save.
 6. Wait for GitHub’s deployment to finish and use the website address shown in Pages settings. The expected address is `https://paulaluruena.github.io/Paula-Luruena-Professional-Portfolio/`.
 
-The earlier ZIP file in the repository does not serve the website. It can remain there, but the extracted website files are required. These instructions do not mean the updated site is already published.
+The ZIP is a downloadable copy of the source. GitHub Pages serves the extracted website files at the repository root.
 
 Official guide: https://docs.github.com/en/pages/quickstart
 
@@ -25,7 +32,7 @@ For live development, run `npm ci` and `npm run dev`. Run `npm run build` for an
 
 ## What is included
 
-- A personal profile and a clear introduction to Paula’s experience and professional interests.
+- A personal profile with a real, circular portrait of Paula and a clear introduction to her experience and professional interests.
 - Four expandable experience profiles, including specific contributions, methods, and context.
 - A research workflow showing where Paula contributes to the lab’s work.
 - Future interests separated from established work experience.
@@ -40,6 +47,7 @@ For live development, run `npm ci` and `npm run dev`. Run `npm run build` for an
 - `styles.css`: typography, colors, layout, responsiveness, and print styles.
 - `script.js`: navigation, expand/collapse controls, linked experience sections, and reading position.
 - `assets/Paula-Luruena-Marquez-Resume.pdf`: the downloadable résumé. Keep the filename when updating it.
+- `assets/paula-portrait.png`: Paula’s supplied photograph, displayed in a circle with CSS without altering the original image.
 - `assets/connection.webp`: decorative, AI-generated ribbon artwork; it does not represent a work sample or research result.
 
 ## Content and privacy notes
