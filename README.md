@@ -1,6 +1,6 @@
 # Paula Luruena Marquez — Professional Portfolio
 
-A portfolio connecting developmental research, supervised behavioral support, community mental health, and cross-cultural experience. Built from Paula’s September 2026 résumé, with clearly labeled future interests in psychology and AI, human and consumer insight, and organizations.
+A portfolio connecting developmental research, supervised behavioral support, community mental health, and cross-cultural experience. Built from Paula’s September 2026 résumé, with clearly labeled future interests in psychology and AI, human and consumer insight—including fashion, retail, and design—and organizations.
 
 ## Live portfolio
 
