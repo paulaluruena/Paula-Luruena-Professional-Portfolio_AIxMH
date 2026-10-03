@@ -1,73 +1,92 @@
 document.documentElement.classList.add('js');
+
+/* Mobile navigation */
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#navigation');
-function closeMenu() {
-  navigation.classList.remove('is-open');
-  menuButton.setAttribute('aria-expanded', 'false');
-  menuButton.querySelector('span').textContent = '+';
+if (menuButton && navigation) {
+  const icon = menuButton.querySelector('span');
+  const setMenu = open => {
+    menuButton.setAttribute('aria-expanded', String(open));
+    navigation.classList.toggle('is-open', open);
+    if (icon) icon.textContent = open ? '−' : '+';
+  };
+  menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+  navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+      setMenu(false);
+      menuButton.focus();
+    }
+  });
+  matchMedia('(min-width: 901px)').addEventListener('change', () => setMenu(false));
 }
-menuButton.addEventListener('click', () => {
-  const open = menuButton.getAttribute('aria-expanded') !== 'true';
-  menuButton.setAttribute('aria-expanded', String(open));
-  navigation.classList.toggle('is-open', open);
-  menuButton.querySelector('span').textContent = open ? '−' : '+';
-});
-navigation.addEventListener('click', event => {
-  if (event.target.closest('a')) closeMenu();
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
-    closeMenu();
-    menuButton.focus();
-  }
-});
-document.addEventListener('click', event => {
-  if (!event.target.closest('.site-header')) closeMenu();
-});
-window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
-  if (event.matches) closeMenu();
-});
+
+/* Experience disclosures */
 const experiences = [...document.querySelectorAll('.experience-item')];
 const expandButton = document.querySelector('.expand-all');
-function updateExpandButton() {
-  expandButton.textContent = experiences.every(item => item.open) ? 'Collapse all experiences' : 'Expand all experiences';
+if (expandButton && experiences.length) {
+  expandButton.hidden = false;
+  const updateLabel = () => {
+    expandButton.textContent = experiences.every(item => item.open) ? 'Collapse all' : 'Expand all';
+  };
+  expandButton.addEventListener('click', () => {
+    const open = !experiences.every(item => item.open);
+    experiences.forEach(item => { item.open = open; });
+    updateLabel();
+  });
+  experiences.forEach(item => item.addEventListener('toggle', updateLabel));
+  updateLabel();
 }
-expandButton.hidden = false;
-expandButton.addEventListener('click', () => {
-  const shouldOpen = !experiences.every(item => item.open);
-  experiences.forEach(item => { item.open = shouldOpen; });
-  updateExpandButton();
-});
-experiences.forEach(item => item.addEventListener('toggle', updateExpandButton));
-function revealLinkedExperience() {
-  const item = experiences.find(item => `#${item.id}` === window.location.hash);
+function openLinkedExperience() {
+  const item = experiences.find(entry => `#${entry.id}` === location.hash);
   if (item) item.open = true;
 }
-window.addEventListener('hashchange', revealLinkedExperience);
-revealLinkedExperience();
+window.addEventListener('hashchange', openLinkedExperience);
+openLinkedExperience();
+
+/* Reading progress and active navigation */
 const progress = document.querySelector('.reading-progress');
-const sectionLinks = [...navigation.querySelectorAll('a')];
-const sections = sectionLinks.map(link => document.querySelector(link.getAttribute('href')));
-let scrollQueued = false;
+const navLinks = navigation ? [...navigation.querySelectorAll('a[href^="#"]')] : [];
+const sections = navLinks.map(link => document.querySelector(link.getAttribute('href')));
+let scheduled = false;
 function updateReadingPosition() {
-  const range = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.transform = `scaleX(${range > 0 ? Math.min(1, Math.max(0, window.scrollY / range)) : 0})`;
-  let active = -1;
+  scheduled = false;
+  const remaining = document.documentElement.scrollHeight - innerHeight;
+  if (progress) {
+    const ratio = remaining > 0 ? Math.min(1, Math.max(0, scrollY / remaining)) : 0;
+    progress.style.transform = `scaleX(${ratio})`;
+  }
+  let current = -1;
   sections.forEach((section, index) => {
-    if (section && section.getBoundingClientRect().top <= 180) active = index;
+    if (section && section.getBoundingClientRect().top <= 160) current = index;
   });
-  sectionLinks.forEach((link, index) => {
-    if (index === active) link.setAttribute('aria-current', 'location');
+  navLinks.forEach((link, index) => {
+    if (index === current) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');
   });
-  scrollQueued = false;
 }
-function queueReadingPosition() {
-  if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(updateReadingPosition); }
+function schedule() {
+  if (!scheduled) { scheduled = true; requestAnimationFrame(updateReadingPosition); }
 }
-window.addEventListener('scroll', queueReadingPosition, { passive: true });
-window.addEventListener('resize', queueReadingPosition);
-experiences.forEach(item => item.addEventListener('toggle', queueReadingPosition));
-window.addEventListener('load', queueReadingPosition);
+window.addEventListener('scroll', schedule, { passive: true });
+window.addEventListener('resize', schedule);
+document.addEventListener('toggle', schedule, true);
 updateReadingPosition();
-document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Gentle reveal on scroll (skipped when reduced motion is preferred) */
+const revealItems = [...document.querySelectorAll('.reveal')];
+if (revealItems.length && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('can-reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  revealItems.forEach(item => observer.observe(item));
+}
+
+const year = document.querySelector('#year');
+if (year) year.textContent = new Date().getFullYear();
