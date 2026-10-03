@@ -31,6 +31,6 @@ Open `index.html` in a browser, or run `npm ci` then `npm run dev`.
 ## Edit
 
 - `index.html` — all content
-- `styles.css` — indigo-to-teal gradients, soft cards, and smooth motion (disabled for people who prefer reduced motion)
-- `script.js` — mobile menu, expandable experience, reading progress, scroll reveals
-- `assets/` — portrait, artwork, local fonts with licenses, and the downloadable résumé
+- `styles.css` — lavender, indigo, and sage design in Bricolage Grotesque and Figtree, with a slow breathing animation in the hero (off for people who prefer reduced motion)
+- `script.js` — principle tabs, filterable experience explorer, skills that jump to the roles where they were used, copy-email button, mobile menu
+- `assets/` — small portrait, local fonts with licenses, and the downloadable résumé
