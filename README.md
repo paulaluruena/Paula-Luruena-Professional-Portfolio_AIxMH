@@ -12,10 +12,12 @@ This is one of three tailored portfolios built from the same background:
 
 ## Content
 
-- **Focus:** three principles and the questions Paula wants to explore, each grounded in real experience.
-- **Experience:** Riverway, Cruz Roja, the Learning & Brain Development Lab, Deep Roots, Puentes, and the AI & Society Club, each with a note on why it matters for AI in mental health. Montalur and 100 Montaditos appear as additional experience.
-- **Skills:** research and data, clinical and behavioral foundations, responsible AI literacy, communication, skills in development, target roles, and settings.
-- **Background:** education, honors, languages, community work, and interests.
+- **Overview:** name, focus, and key facts, with a side rail for navigation and contact.
+- **Profile:** a short statement and bio.
+- **Focus areas:** expanding panels with the questions she would explore and the experience behind each.
+- **Experience:** a filterable explorer of every role, each with a timeline and a focus-specific note.
+- **Competencies:** a matrix linking skills to the roles where they were built; selecting one filters the explorer.
+- **Background:** education, languages, community, and the roles she is pursuing.
 
 Professional facts come from Paula’s CV and résumé. Interests are labeled as interests, clinical observation is described as observational, and skills in development are labeled that way. Street address and phone number are intentionally left off the public site.
 
@@ -30,7 +32,11 @@ Open `index.html` in a browser, or run `npm ci` then `npm run dev`.
 
 ## Edit
 
-- `index.html` — all content
-- `styles.css` — lavender, indigo, and sage design in Bricolage Grotesque and Figtree, with a slow breathing animation in the hero (off for people who prefer reduced motion)
-- `script.js` — principle tabs, filterable experience explorer, skills that jump to the roles where they were used, copy-email button, mobile menu
+All three portfolios share one design, so only their focus differs.
+
+- `index.html` — page content
+- `styles.css` — shared design: Bodoni Moda and Hanken Grotesk, a side rail with live New Orleans and Madrid clocks, and wine accents
+- `script.js` — expanding focus panels, filterable experience explorer with a 2021–2027 timeline, competency matrix filters, copy-email button, and mobile menu
 - `assets/` — small portrait, local fonts with licenses, and the downloadable résumé
+
+Animations are disabled for people who prefer reduced motion, and the content stays readable without JavaScript.
